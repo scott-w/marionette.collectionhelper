@@ -38,12 +38,186 @@ of collection, we should be able to get even more performance from the current
 implementation. If we remove the `filter` and `sort` implementations from the
 `CollectionView` then we no longer have to account for this internal state.
 
-## Proposal
+## Proposals
 
 My proposed solution is to use a form of intermediary `Collection` that
 maintains sorting and filtering state. It will need to proxy all its matching
 collection events through to the listening view. It will also need to cleanly
-manage the collection's state.
+respond to significant changes in the collection's internal state.
+
+### Intermediary Collection
+
+The diagram below gives an idea of how to build up this state:
+
+![Using an Intermediary Collection](./intermediary-collection.png)
+
+The intermediary collection would mean making no changes to the existing
+Marionette codebase and would handle all filtering and sorting for Marionette.
+In time, we could deprecate the `filter` and `sort` methods for removal from
+Marionette 4.0.
+
+Alternatively, we could proxy `filter` and `sort` into this collection in a way
+that means when the developer sets the methods, it simply acts directly on the
+collection instead of building up an internal state.
+
+Below is a possible code example:
+
+```javascript
+import _ from 'lodash';
+import {Collection} from 'backbone';
+import {CollectionView, View} from 'backbone.marionette';
+
+import {FilteringSortingCollection} from 'marionette.collectionhelper';
+
+import {MyModel} from './models';
+
+const MyCollection = Collection.extend({
+  model: MyModel
+});
+
+const myCollection = new MyCollection([
+  {name: 'David'}, {name: 'Steven'}, {name: 'Sally'}, {name: 'Alan'}
+]);
+
+const MyManagedCollection = FilteringSortingCollection.extend({
+  comparator: 'name',
+  searcher: function(value) {
+    const lower = value.toLowercase();
+    return this.filter(
+      model => model.get('name').toLowercase().startsWith(lower));
+  }
+});
+
+const sortedCollection = new MySortingCollection(myCollection);
+
+const MyView = View.extend({
+  tagName: 'li',
+  template: _.template('<%- name %>')
+});
+
+const MyCollectionView = CollectionView.extend({
+  tagName: 'ol',
+  childView: MyView
+});
+
+const myView = new MyCollectionView({
+  collection: sortedCollection
+});
+
+myView.render();
+/* Outputs:
+  <ol>
+    <li>Alan</li>
+    <li>David</li>
+    <li><Steven</li>
+  </ol>
+*/
+
+myView.search('David');
+/* Outputs:
+  <ol>
+    <li>David</li>
+  </ol>
+*/
+
+myView.search('s');
+/* Outputs:
+  <ol>
+    <li>Sally</li>
+    <li>Steven</li>
+  </ol>
+*/
+```
+
+The idea behind this code should be able to filter and enforce sorting order
+without adding complex code into the Marionette codebase itself. The methods
+should allow the developer to return raw lists of objects and then just manage
+converting them into the collection silently.
+
+The downside to this approach is it's quite verbose: you need to define and
+instantiate a separate comparator manager class and assign a collection. A
+much nicer way to handle this would be to have Marionette handle that for us.
+
+### Sort/Filter Manager
+
+Assigning a separate sorting and filtering manage for a `CollectionView` would
+let us assign a definition and have Marionette manage its creation and
+destruction.
+
+The diagram below outlines this proposal:
+
+![Using a separate Collection Manager](./collection-manage.png)
+
+As we can see, Marionette will manage the lifecycle of the manager and we just
+have to define it.
+
+The code snippet below will provide a good comparison:
+
+```javascript
+import _ from 'lodash';
+import {Collection} from 'backbone';
+import {CollectionView, View} from 'backbone.marionette';
+
+import {FilteringSortingCollection} from 'marionette.collectionhelper';
+
+import {MyModel} from './models';
+
+const MyCollection = Collection.extend({
+  model: MyModel
+});
+
+const myCollection = new MyCollection([
+  {name: 'David'}, {name: 'Steven'}, {name: 'Sally'}, {name: 'Alan'}
+]);
+
+const MyManagedCollection = FilteringSortingCollection.extend({
+  comparator: 'name',
+  searcher: function(value) {
+    const lower = value.toLowercase();
+    return this.filter(
+      model => model.get('name').toLowercase().startsWith(lower));
+  }
+});
+
+const MyView = View.extend({
+  tagName: 'li',
+  template: _.template('<%- name %>')
+});
+
+const MyCollectionView = CollectionView.extend({
+  tagName: 'ol',
+  childView: MyView
+});
+
+const myView = new MyCollectionView({
+  collection: sortedCollection,
+  filterer: MyManagedCollection
+});
+
+myView.render();
+/* Outputs:
+  <ol>
+    <li>Alan</li>
+    <li>David</li>
+    <li><Steven</li>
+  </ol>
+*/
+
+myView.search('David');
+/* Outputs:
+  <ol>
+    <li>David</li>
+  </ol>
+*/
+
+myView.search('s');
+/* Outputs:
+  <ol>
+    <li>Sally</li>
+    <li>Steven</li>
+  </ol>
+*/
+```
 
 ## Inspiration
 
