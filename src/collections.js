@@ -1,5 +1,6 @@
 import {Collection} from 'backbone';
 import { postConstructInstance } from './mixins/base';
+import { bindSearchFunction } from './mixins/filter';
 
 
 /** A sorting collection that ignores the underlying collection's sorting.
@@ -7,8 +8,17 @@ import { postConstructInstance } from './mixins/base';
     state, but returning the real models in the collection.
 */
 export const SortingCollection = Collection.extend({
-  constructor(collection, ...args) {
-    Collection.apply(this, collection.models, args);
+  constructor(collection) {
+    Collection.apply(this, collection.models, arguments);
     postConstructInstance(this, collection);
+  }
+});
+
+
+export const Filter = Collection.extend({
+  constructor(collection) {
+    Collection.apply(this, collection.models, arguments);
+    postConstructInstance(this, collection);
+    bindSearchFunction(this);
   }
 });

@@ -146,7 +146,7 @@ destruction.
 
 The diagram below outlines this proposal:
 
-![Using a separate Collection Manager](./collection-manage.png)
+![Using a separate Collection Manager](./collection-manager.png)
 
 As we can see, Marionette will manage the lifecycle of the manager and we just
 have to define it.
@@ -233,7 +233,7 @@ REST Framework will then manage how to apply these filters. It also provides
 backends for automatically sorting and passing sorting parameters for the user
 to request.
 
-In a separate topic, paging is designed in a similar way - a separate paging
+In a related topic, paging is designed in a similar way - a separate paging
 class that gets attached to a `ViewSet` that cleanly separates paging from the
 querying, filtering, and sorting logic.
 

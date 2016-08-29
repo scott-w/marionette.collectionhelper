@@ -1,6 +1,6 @@
 export function postConstructInstance(collectionMapper, collection) {
   collectionMapper._collection = collection;
-  bindMapEventsOn(this);
+  bindMapEventsOn(collectionMapper);
 }
 
 function bindMapEventsOn(collectionMapper) {
