@@ -4,15 +4,22 @@ import { bindSearchFunction } from './mixins/filter';
 import { bindSortFunction } from './mixins/sort';
 
 
-/** A sorting collection that ignores the underlying collection's sorting.
-    This proxies the models in the original collection, maintaining its own
-    state, but returning the real models in the collection.
-*/
-export const Sort = Collection.extend({
+export const Proxy = Collection.extend({
   constructor(collection) {
     const args = updateArgs(collection, arguments);
     Collection.apply(this, args);
     postConstructInstance(this, collection);
+  }
+});
+
+
+/** A sorting collection that ignores the underlying collection's sorting.
+    This proxies the models in the original collection, maintaining its own
+    state, but returning the real models in the collection.
+*/
+export const Sort = Proxy.extend({
+  constructor() {
+    Proxy.apply(this, arguments);
     bindSortFunction(this);
   }
 });
@@ -21,11 +28,9 @@ export const Sort = Collection.extend({
 /** A filtering collection that proxies models in the original collection to
     filter on.
 */
-export const Filter = Collection.extend({
-  constructor(collection) {
-    const args = updateArgs(collection, arguments);
-    Collection.apply(this, args);
-    postConstructInstance(this, collection);
+export const Filter = Proxy.extend({
+  constructor() {
+    Proxy.apply(this, arguments);
     bindSearchFunction(this);
   }
 });
