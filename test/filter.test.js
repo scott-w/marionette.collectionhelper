@@ -20,6 +20,13 @@ describe('Filter mapper', function() {
     filter = new CollectionFilter(collection);
   });
 
+  it('defaults to setting all models', function() {
+    expect(filter.length).to.be(3);
+    expect(filter.at(0).get('name')).to.equal('Test');
+    expect(filter.at(1).get('name')).to.equal('Harry');
+    expect(filter.at(2).get('name')).to.equal('Mary');
+  });
+
   it('proxies the filter method', function() {
     filter.search('Harry');
 
