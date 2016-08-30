@@ -2,6 +2,13 @@ const path = require('path');
 
 module.exports = {
   entry: './src/index.js',
+  externals: {
+    jquery: {
+      global: '$',
+      commonjs: 'jquery'
+    },
+    backbone: true
+  },
   module: {
     loaders: [
       {
