@@ -10,10 +10,7 @@ import { bindSortFunction } from './mixins/sort';
 */
 export const Sort = Collection.extend({
   constructor(collection) {
-    const args = [collection.models];
-    for (let i = 1; i < arguments.length; ++i) {
-      args.push(arguments[i]);
-    }
+    const args = updateArgs(collection, arguments);
     Collection.apply(this, args);
     postConstructInstance(this, collection);
     bindSortFunction(this);
@@ -21,14 +18,25 @@ export const Sort = Collection.extend({
 });
 
 
+/** A filtering collection that proxies models in the original collection to
+    filter on.
+*/
 export const Filter = Collection.extend({
   constructor(collection) {
-    const args = [collection.models];
-    for (let i = 1; i < arguments.length; ++i) {
-      args.push(arguments[i]);
-    }
+    const args = updateArgs(collection, arguments);
     Collection.apply(this, args);
     postConstructInstance(this, collection);
     bindSearchFunction(this);
   }
 });
+
+
+/** Update the given arguments with the passed collection.
+  @returns {Object[]} args - The updated arguments to pass to the constructor.
+  @param {Backbone.Collection} collection - The original collection instance.
+  @param {Object[]} args - The arguments array to fix.
+*/
+function updateArgs(collection, args) {
+  args[0] = collection.models;
+  return args;
+}
