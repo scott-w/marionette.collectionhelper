@@ -32,5 +32,5 @@ Marionette's `CollectionView` has many issues regarding how it handles sorting
 and filtering. For full information, see
 [the Rationale document][rationale].
 
-[docs]: http;//scottwalton.codes/marionette.collectionhelper
-[rationale]: http;//scottwalton.codes/marionette.collectionhelper/rationale/
+[docs]: http://scottwalton.codes/marionette.collectionhelper
+[rationale]: http://scottwalton.codes/marionette.collectionhelper/rationale/
