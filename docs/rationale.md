@@ -1,3 +1,8 @@
+---
+layout: page
+title: Rationale
+permalink: /rationale/
+---
 # Rationale
 
 The `CollectionHelper` is a proposed solution to how we should resolve the

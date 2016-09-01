@@ -1,3 +1,9 @@
+---
+layout: page
+title: API
+permalink: /api/
+---
+
 # Filter/Sort API
 
 Collection searching/sorting can be done either client-side or server-side. The
