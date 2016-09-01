@@ -13,6 +13,12 @@ included:
 2. Performance issues.
 3. Issues keeping the DOM up-to-date with the sort/filter status.
 4. Ignores `Backbone.Collection` `sort` and `filter` methods.
+5. No clear way to share filters between views.
+
+A good solution should allow the Marionette code base to focus on efficently
+synchronising the `CollectionView` with the attached collection, provide a 
+clear, documented way to manage sorting and filtering, cleanly separate concerns
+and work within the existing Backbone and Marionette ecosystem.
 
 ### Why Not Collection?
 
@@ -37,6 +43,14 @@ rendering changes to the attached collection. If we improve the implementation
 of collection, we should be able to get even more performance from the current
 implementation. If we remove the `filter` and `sort` implementations from the
 `CollectionView` then we no longer have to account for this internal state.
+
+### Server-side considerations
+
+Most server-side integration is currently developed ad-hoc in each project. An
+ideal solution is to provide clean hooks and documented methods for interacting
+with a RESTful HTTP API. Whilst this is a "simpler" integration in that it is
+just intended to pass information through to the API, an idea situation is to
+give some nice hook-points and options to bind quickly.
 
 ## Proposals
 
@@ -237,4 +251,11 @@ In a related topic, paging is designed in a similar way - a separate paging
 class that gets attached to a `ViewSet` that cleanly separates paging from the
 querying, filtering, and sorting logic.
 
+The server-side integration draws heavily on the  
+[Backbone.Paginator][paginator] library. One of the great things in 
+`PageableCollection` is the hidden collection that lets us act on just a page at
+a time or the entire collection. However, it doesn't fully resolve the issues
+outlined above.
+
 [drf]: http://www.django-rest-framework.org/api-guide/filtering/
+[paginator]: https://github.com/backbone-paginator/backbone.paginator

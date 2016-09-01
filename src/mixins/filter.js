@@ -2,21 +2,22 @@ import _ from 'underscore';
 
 /** Adds a search method to a collection.
   @returns {undefined} undefined
-  @param {Backbone.Collection} collection - The collection to attach search to
+  @param {Backbone.Collection} collection - The collection to attach search to.
 */
 export function bindSearchFunction(collection) {
   collection.search = search;
 }
 
 /** Perform the actual search
-  @returns {undefined} undefined
-  @param {(string|object)} terms - Blah
+  @returns {Backbone.Collection} The filtered collection.
+  @param {(string|object)} terms - The term or object of terms to search for.
   @param {Object} [options] - Options to pass to the filter event.
 */
 function search(terms, options) {
   const result = doFilter(this._collection, this.filterFunction, terms);
   this.set(result);
   this.trigger('filter', this, terms, options);
+  return this._collection;
 }
 
 /** Apply the filter function to the attached collection and return the result.

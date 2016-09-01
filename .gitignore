@@ -40,3 +40,6 @@ tmp
 
 # Users Environment Variables
 .lock-wscript
+
+.npm*
+.vscode

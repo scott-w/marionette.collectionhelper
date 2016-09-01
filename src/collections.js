@@ -27,6 +27,14 @@ export const Sort = Proxy.extend({
 
 /** A filtering collection that proxies models in the original collection to
     filter on.
+
+    This adds a search method that performs the search against the real 
+    collection and updates this proxy for your view to respond.
+
+    When extending this, you will need to add a filterFunction method of the
+    signature:
+      filterFunction(terms) :=> [Backbone.Model]
+    The filterFunction context is the collection argument of this Filter.
 */
 export const Filter = Proxy.extend({
   constructor() {
