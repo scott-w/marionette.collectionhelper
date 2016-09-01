@@ -39,4 +39,14 @@ describe('Filter mapper', function() {
 
     expect(collection.length).to.be(3);
   });
+
+  it('restores collection if searched empty', function() {
+    filter.search('Harry');
+    filter.search();
+
+    expect(filter.length).to.be(3);
+    expect(filter.at(0).get('name')).to.equal('Test');
+    expect(filter.at(1).get('name')).to.equal('Harry');
+    expect(filter.at(2).get('name')).to.equal('Mary');
+  });
 });
