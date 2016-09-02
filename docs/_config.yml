@@ -26,3 +26,6 @@ github_username:  scott-w
 # Build settings
 markdown: kramdown
 theme: minima
+
+sass:
+  sass_dir: _sass

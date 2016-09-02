@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: document
 title: Rationale
 permalink: /rationale/
 ---

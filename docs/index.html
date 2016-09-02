@@ -1,18 +1,25 @@
 ---
-layout: default
+layout: base
 ---
 
-<div class="home">
+<div class="jumbotron">
+  <div class="container">
+    <h1 class="display-3">Marionette Collection Helper</h1>
 
-<h1>Marionette Collection Helper</h1>
+    <p>
+    This library is a proof-of-concept for how I see `CollectionView` being managed
+    in future versions of Marionette.
+    </p>
+    <p>See the 
+      <a href="https://github.com/scott-w/marionette.collectionhelper.git">
+        Github repo
+      </a> for more information.
+    </p>
+  </div>
+</div>
 
-<p>
-This library is a proof-of-concept for how I see `CollectionView` being managed
-in future versions of Marionette.
-</p>
-{% capture getting-started %}{% include getting_started.md %}{% endcapture %}
-{{ getting-started | markdownify }}
-
-<p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>
-
+<div class="container">
+  {% capture getting-started %}{% include getting_started.md %}{% endcapture %}
+  {{ getting-started | markdownify }}
+  <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>
 </div>
