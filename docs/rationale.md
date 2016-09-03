@@ -172,7 +172,7 @@ have to define it.
 
 The code snippet below will provide a good comparison:
 
-```javascript
+{% highlight js %}
 import _ from 'lodash';
 import {Collection} from 'backbone';
 import {CollectionView, View} from 'backbone.marionette';
@@ -236,7 +236,7 @@ myView.search('s');
     <li>Steven</li>
   </ol>
 */
-```
+{% endhighlight %}
 
 ## Inspiration
 

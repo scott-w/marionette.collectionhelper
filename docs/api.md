@@ -21,7 +21,7 @@ Filtering in the client allows you to filter your collections and re-render your
 views against the filtered collection efficiently. This works by simply 
 extending `Filter` and setting the `filterFunction`:
 
-```javascript
+{% highlight js %}
 import { Collection } from 'backbone';
 import { Filter } from 'marionette.collectionhelper';
 
@@ -42,7 +42,7 @@ const filterProxy = new NameFilter(collection: myCollection);
 filterProxy.search('Steve');
 filterProxy.each(model => console.log(model.get('name')));
 // Prints Steve
-```
+{% endhighlight %}
 
 ## Sort
 
@@ -54,7 +54,7 @@ as a drop-in replacement where a `Backbone.Collection` can be used.
 
 To use with `CollectionView`, simply attach it to the `collection` as such:
 
-```javascript
+{% highlight js %}
 import { CollectionView, View } from 'backbone.marionette';
 import { Collection } from 'backbone';
 import { Filter } from 'marionette.collectionhelper';
@@ -126,7 +126,7 @@ const personView = new PersonLayout({
 
 /** Fake render - in a real application, we'd just use showChildView */
 personView.render();
-```
+{% endhighlight %}
 
 This example sets up a basic filtering setup. One of the key advantages of using
 this `Filter` over the Marionette built-in `filter` is that you can share this
