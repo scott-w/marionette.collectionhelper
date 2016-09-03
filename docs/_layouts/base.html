@@ -15,21 +15,7 @@
 
   </head>
   <body>
-    <nav class="navbar navbar-static-top navbar-dark bg-inverse">
-      <a class="navbar-brand" href="#">Marionette.CollectionHelper</a>
-      <ul class="nav navbar-nav pull-right">
-        <li class="nav-item active">
-          <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/api/">API</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/rationale/">Rationale</a>
-        </li>
-      </ul>
-    </nav>
-    
+    {% include navbar.html %}
     {{ content }}
   </body>
 </html>

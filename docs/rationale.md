@@ -81,7 +81,7 @@ collection instead of building up an internal state.
 
 Below is a possible code example:
 
-```javascript
+{% highlight js %}
 import _ from 'lodash';
 import {Collection} from 'backbone';
 import {CollectionView, View} from 'backbone.marionette';
@@ -146,7 +146,7 @@ myView.search('s');
     <li>Steven</li>
   </ol>
 */
-```
+{% endhighlight %}
 
 The idea behind this code should be able to filter and enforce sorting order
 without adding complex code into the Marionette codebase itself. The methods
