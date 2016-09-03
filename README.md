@@ -5,10 +5,27 @@ in future versions of Marionette.
 
 ## Setting Up
 
-This isn't on NPM right now, so you'll have to install from Github:
+Install via NPM:
 
 ```bash
 npm install marionette.collectionhelper
+```
+
+You can then include it in your JS views:
+
+```javascript
+import { Filter } from 'marionette.collectionhelper';
+
+const NameFilter = Filter.extend({
+  filterFunction: function(term) {
+    return this.where({
+      name: term
+    });
+  }
+});
+
+filter = new NameFilter(new Collection([{name: 'Sarah'}]));
+filter.search('Sarah');
 ```
 
 ## Guide
