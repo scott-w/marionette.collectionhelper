@@ -68,7 +68,7 @@ respond to significant changes in the collection's internal state.
 
 The diagram below gives an idea of how to build up this state:
 
-![Using an Intermediary Collection](./intermediary-collection.png)
+![Using an Intermediary Collection](/intermediary-collection.png)
 
 The intermediary collection would mean making no changes to the existing
 Marionette codebase and would handle all filtering and sorting for Marionette.
@@ -165,7 +165,7 @@ destruction.
 
 The diagram below outlines this proposal:
 
-![Using a separate Collection Manager](./collection-manager.png)
+![Using a separate Collection Manager](/collection-manager.png)
 
 As we can see, Marionette will manage the lifecycle of the manager and we just
 have to define it.
