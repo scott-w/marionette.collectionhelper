@@ -1,14 +1,7 @@
 const path = require('path');
 
 module.exports = {
-  entry: './src/index.js',
-  externals: {
-    jquery: {
-      global: '$',
-      commonjs: 'jquery'
-    },
-    backbone: true
-  },
+  entry: './demo/app/driver.js',
   module: {
     loaders: [
       {
@@ -22,7 +15,7 @@ module.exports = {
     ]
   },
   output: {
-    path: path.join(__dirname, 'lib'),
-    filename: 'marionette.collectionhelper.js'
+    path: path.join(__dirname, 'demo/js'),
+    filename: 'app.js'
   }
 };
