@@ -12,7 +12,8 @@ const app = new Mn.Application({
       {name: 'Sarah'}, {name: 'Steve'}, {name: 'Helen'}, {name: 'Harry'}
     ]);
 
-    region.show(new MainView({collection: collection}));
+    const view = new MainView({collection: collection});
+    region.show(view);
   }
 });
 

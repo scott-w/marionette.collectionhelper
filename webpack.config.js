@@ -7,7 +7,8 @@ module.exports = {
       global: '$',
       commonjs: 'jquery'
     },
-    backbone: true
+    backbone: true,
+    underscore: true
   },
   module: {
     loaders: [
@@ -23,6 +24,8 @@ module.exports = {
   },
   output: {
     path: path.join(__dirname, 'lib'),
-    filename: 'marionette.collectionhelper.js'
+    filename: 'marionette.collectionhelper.js',
+    library: 'marionette.collectionhelper',
+    libraryTarget: 'commonjs2'
   }
 };

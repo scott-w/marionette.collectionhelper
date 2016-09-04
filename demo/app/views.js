@@ -7,11 +7,13 @@ import main from './templates/main.html';
 
 
 const Person = View.extend({
+  tagName: 'li',
   template: person
 });
 
 const PersonList = CollectionView.extend({
-  childView: Person
+  childView: Person,
+  tagName: 'ol'
 });
 
 export const MainView = View.extend({
@@ -24,7 +26,7 @@ export const MainView = View.extend({
   onRender() {
     const nameFilter = new NameFilter(this.collection);
     this.showChildView('person', new PersonList({
-      collection: nameFilter}
-    ));
+      collection: nameFilter
+    }));
   }
 });
