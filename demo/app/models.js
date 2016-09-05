@@ -7,3 +7,9 @@ export const NameModel = Model.extend({
     surname: 'Smith'
   }
 });
+
+export const FormModel = Model.extend({
+  defaults: {
+    search: ''
+  }
+});

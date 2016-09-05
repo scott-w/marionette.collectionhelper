@@ -49,4 +49,21 @@ describe('Filter mapper', function() {
     expect(filter.at(1).get('name')).to.equal('Harry');
     expect(filter.at(2).get('name')).to.equal('Mary');
   });
+
+  it('restores collection on empty string search', function() {
+    filter.search('Harry');
+    filter.search('');
+
+    expect(filter.length).to.be(3);
+    expect(filter.at(0).get('name')).to.equal('Test');
+    expect(filter.at(1).get('name')).to.equal('Harry');
+    expect(filter.at(2).get('name')).to.equal('Mary');
+  });
+
+  it('takes a searchEmpty option to look up empty value', function() {
+    filter.search('Harry');
+    filter.search('', {searchEmpty: true});
+
+    expect(filter.length).to.be(0);
+  });
 });
