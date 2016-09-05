@@ -28,6 +28,11 @@ $title-padding: 15px;
 .jumbotron {
   border-bottom: 1px solid #BAD1DD;
   color: $jumbotron-color;
+  border-radius: 0px;
+}
+
+.navbar {
+  border-radius: 0px;
 }
 
 figure.highlight {
@@ -36,6 +41,8 @@ figure.highlight {
   border-radius: $code-border-radius;
   padding: $code-padding;
 }
+
+
 .highlight  { background: #ffffff; }
 .highlight .c { color: #999988; font-style: italic } /* Comment */
 .highlight .err { color: #a61717; background-color: #e3d2d2 } /* Error */
