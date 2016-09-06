@@ -26,7 +26,7 @@ import { Collection } from 'backbone';
 import { Filter } from 'marionette.collectionhelper';
 
 export const NameFilter = Filter.extend({
-  filterFunction: function(term) {
+  filterFunction(term) {
     return this.where({
       name: term
     });
@@ -37,7 +37,7 @@ const myCollection = new Collection([
   {name: 'Steve'}, {name: 'Sarah'}
 ]);
 
-const filterProxy = new NameFilter(collection: myCollection);
+const filterProxy = new NameFilter(myCollection);
 
 filterProxy.search('Steve');
 filterProxy.each(model => console.log(model.get('name')));
@@ -87,7 +87,7 @@ const PersonLayout = View.extend({
     'keyup @ui.searchBox': 'runSearch'
   },
 
-  onRender: function() {
+  onRender() {
     this.showChildView('list', new PersonList({
       collection: this.collection
     }));
@@ -97,7 +97,7 @@ const PersonLayout = View.extend({
       search term, this will run the search terms against our collection and 
       automatically update the collection view. 
   */
-  runSearch: function() {
+  runSearch() {
     const searchTerm = this.ui.searchBox.val();
     this.collection.search(searchTerm);
   }
@@ -111,7 +111,7 @@ const people = new Collection([
 const PeopleFilter = Filter.extend({
 
   /** Setup the filter function to search the collection */
-  filterFunction: function(term) {
+  filterFunction(term) {
     return this.where({
       name: term
     });

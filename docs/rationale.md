@@ -68,7 +68,7 @@ respond to significant changes in the collection's internal state.
 
 The diagram below gives an idea of how to build up this state:
 
-![Using an Intermediary Collection]({{ site.baseurl }}/intermediary-collection.png)
+![Using an Intermediary Collection]({{ site.url }}{{ site.baseurl }}/intermediary-collection.png)
 
 The intermediary collection would mean making no changes to the existing
 Marionette codebase and would handle all filtering and sorting for Marionette.
@@ -100,7 +100,7 @@ const myCollection = new MyCollection([
 
 const MyManagedCollection = FilteringSortingCollection.extend({
   comparator: 'name',
-  searcher: function(value) {
+  searcher(value) {
     const lower = value.toLowercase();
     return this.filter(
       model => model.get('name').toLowercase().startsWith(lower));
@@ -165,7 +165,7 @@ destruction.
 
 The diagram below outlines this proposal:
 
-![Using a separate Collection Manager]({{ site.baseurl }}/collection-manager.png)
+![Using a separate Collection Manager]({{ site.url }}{{ site.baseurl }}/collection-manager.png)
 
 As we can see, Marionette will manage the lifecycle of the manager and we just
 have to define it.
