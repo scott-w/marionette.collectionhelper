@@ -1,1 +1,1 @@
-export { Filter } from './collections';
+export { Filter, SortingFilter } from './collections';

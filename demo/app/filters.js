@@ -1,6 +1,6 @@
-import {Filter} from 'marionette.collectionhelper';
+import {SortingFilter} from 'marionette.collectionhelper';
 
-export const NameFilter = Filter.extend({
+export const NameFilter = SortingFilter.extend({
   filterFunction(term) {
     return this.where({
       name: term

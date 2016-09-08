@@ -14,11 +14,13 @@ const FormView = View.extend({
   template: form,
 
   ui: {
-    searchBox: '.searchbox'
+    searchBox: '.searchbox',
+    sort: '.sort'
   },
 
   events: {
-    'keyup @ui.searchBox': 'setForm'
+    'keyup @ui.searchBox': 'setForm',
+    'click @ui.sort': 'runSort'
   },
 
   modelEvents: {
@@ -31,6 +33,10 @@ const FormView = View.extend({
 
   search(model, value) {
     this.collection.search(value);
+  },
+
+  runSort() {
+    this.collection.orderBy('name');
   }
 });
 

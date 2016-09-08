@@ -1,6 +1,6 @@
 {
   "name": "marionette.collectionhelper",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Proxy helpers for collections. This replaces the sort/filter functions on `Marionette.View` and the Backbone Paginator library.",
   "main": "lib/marionette.collectionhelper.js",
   "scripts": {

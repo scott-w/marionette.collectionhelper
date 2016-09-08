@@ -17318,11 +17318,13 @@
 	  template: _form2.default,
 
 	  ui: {
-	    searchBox: '.searchbox'
+	    searchBox: '.searchbox',
+	    sort: '.sort'
 	  },
 
 	  events: {
-	    'keyup @ui.searchBox': 'setForm'
+	    'keyup @ui.searchBox': 'setForm',
+	    'click @ui.sort': 'runSort'
 	  },
 
 	  modelEvents: {
@@ -17333,8 +17335,10 @@
 	    this.model.set(_backbone3.default.serialize(this));
 	  },
 	  search: function search(model, value) {
-	    console.log(value);
 	    this.collection.search(value);
+	  },
+	  runSort: function runSort() {
+	    this.collection.orderBy('name');
 	  }
 	});
 
@@ -17887,10 +17891,8 @@
 
 	var _marionette = __webpack_require__(11);
 
-	var NameFilter = exports.NameFilter = _marionette.Filter.extend({
+	var NameFilter = exports.NameFilter = _marionette.SortingFilter.extend({
 	  filterFunction: function filterFunction(term) {
-	    console.log('term', term);
-	    console.log(this.models);
 	    return this.where({
 	      name: term
 	    });
@@ -17966,6 +17968,12 @@
 				return _collections.Filter;
 			}
 		});
+		Object.defineProperty(exports, 'SortingFilter', {
+			enumerable: true,
+			get: function get() {
+				return _collections.SortingFilter;
+			}
+		});
 
 		/***/
 	},
@@ -17977,7 +17985,7 @@
 		Object.defineProperty(exports, "__esModule", {
 			value: true
 		});
-		exports.Filter = exports.Sort = exports.Proxy = undefined;
+		exports.SortingFilter = exports.Filter = exports.Sort = exports.Proxy = undefined;
 
 		var _backbone = __webpack_require__(2);
 
@@ -18019,6 +18027,14 @@
 			constructor: function constructor() {
 				Proxy.apply(this, arguments);
 				(0, _filter.bindSearchFunction)(this);
+			}
+		});
+
+		var SortingFilter = exports.SortingFilter = Proxy.extend({
+			constructor: function constructor() {
+				Proxy.apply(this, arguments);
+				(0, _filter.bindSearchFunction)(this);
+				(0, _sort.bindSortFunction)(this);
 			}
 		});
 
@@ -18182,7 +18198,7 @@
 	with(obj||{}){
 	__p+='<label>\n    Search names\n    <input type="search" class="searchbox" name="search" \n        placeholder="John" value="'+
 	((__t=( search ))==null?'':_.escape(__t))+
-	'" />\n</label>';
+	'" />\n</label>\n\n<button class="sort" type="button">Sort/Unsort</button>';
 	}
 	return __p;
 	};

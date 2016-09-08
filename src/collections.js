@@ -44,6 +44,14 @@ export const Filter = Proxy.extend({
 });
 
 
+export const SortingFilter = Proxy.extend({
+  constructor() {
+    Proxy.apply(this, arguments);
+    bindSearchFunction(this);
+    bindSortFunction(this);
+  }
+})
+
 /** Update the given arguments with the passed collection.
   @returns {Object[]} args - The updated arguments to pass to the constructor.
   @param {Backbone.Collection} collection - The original collection instance.
