@@ -6,8 +6,8 @@ import { Filter } from '../src/collections';
 
 describe('Filter mapper', function() {
   const CollectionFilter = Filter.extend({
-    filterFunction(value) {
-      return this.where({name: value});
+    filterFunction(collection, value) {
+      return collection.where({name: value});
     }
   })
   let collection, filter;
@@ -67,3 +67,47 @@ describe('Filter mapper', function() {
     expect(filter.length).to.be(0);
   });
 });
+
+
+describe('Filter mapper binding', function() {
+  const CollectionFilter = Filter.extend({
+    initialize(collection, options = {nofilter: false}) {
+      this.nofilter = options.nofilter;
+    },
+
+    filterFunction(collection, value) {
+      if (this.actuallyFilter()) {
+        return collection.where({name: value});
+      }
+      return collection.models;
+    },
+
+    actuallyFilter() {
+      return !this.nofilter;
+    }
+  })
+  let collection, filter;
+
+  beforeEach(function() {
+    collection = new Collection([
+      {name: 'Test'}, {name: 'Harry'}, {name: 'Mary'}
+    ]);
+
+  });
+
+  it('binds this to the filter', function() {
+    filter = new CollectionFilter(collection);
+
+    filter.search('Test');
+    expect(filter.length).to.be(1);
+    expect(filter.at(0).get('name')).to.equal('Test');
+  });
+
+  it('works with the initialize', function() {
+    filter = new CollectionFilter(collection, {nofilter: true});
+
+    filter.search('Test');
+    expect(filter.length).to.be(3);
+  })
+});
+

@@ -20,7 +20,7 @@ module.exports = {
     ]
   },
   output: {
-    path: path.join(__dirname, 'demo/js'),
+    path: path.join(__dirname, 'docs/js'),
     filename: 'app.js'
   },
   plugins: [

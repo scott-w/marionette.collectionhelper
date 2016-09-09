@@ -26,8 +26,8 @@ import { Collection } from 'backbone';
 import { Filter } from 'marionette.collectionhelper';
 
 export const NameFilter = Filter.extend({
-  filterFunction(term) {
-    return this.where({
+  filterFunction(collection, term) {
+    return collection.where({
       name: term
     });
   }

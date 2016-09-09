@@ -10,7 +10,6 @@ import main from './templates/main.html';
 
 
 const FormView = View.extend({
-  className: 'form-inline',
   tagName: 'form',
   template: form,
 

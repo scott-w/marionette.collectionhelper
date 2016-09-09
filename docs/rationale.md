@@ -100,9 +100,9 @@ const myCollection = new MyCollection([
 
 const MyManagedCollection = FilteringSortingCollection.extend({
   comparator: 'name',
-  searcher(value) {
+  searcher(collection, value) {
     const lower = value.toLowercase();
-    return this.filter(
+    return collection.filter(
       model => model.get('name').toLowercase().startsWith(lower));
   }
 });
@@ -191,9 +191,9 @@ const myCollection = new MyCollection([
 
 const MyManagedCollection = FilteringSortingCollection.extend({
   comparator: 'name',
-  searcher: function(value) {
+  searcher: function(collection, value) {
     const lower = value.toLowercase();
-    return this.filter(
+    return collection.filter(
       model => model.get('name').toLowercase().startsWith(lower));
   }
 });

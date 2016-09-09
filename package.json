@@ -1,6 +1,6 @@
 {
   "name": "marionette.collectionhelper",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Proxy helpers for collections. This replaces the sort/filter functions on `Marionette.View` and the Backbone Paginator library.",
   "main": "lib/marionette.collectionhelper.js",
   "scripts": {
@@ -8,7 +8,8 @@
     "watchtest": "karma start",
     "build": "webpack",
     "build:demo": "webpack --config=webpack.demo.js",
-    "watch": "webpack -w"
+    "watch": "webpack -w",
+    "watch:demo": "webpack -w --config=webpack.demo.js"
   },
   "repository": {
     "type": "git",

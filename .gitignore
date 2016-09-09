@@ -37,7 +37,7 @@ node_modules
 bower_components
 coverage
 tmp
-
+npm-debug.log*
 # Users Environment Variables
 .lock-wscript
 
