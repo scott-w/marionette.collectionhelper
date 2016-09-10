@@ -2,11 +2,12 @@ import {CollectionView, View} from 'backbone.marionette';
 import Syphon from 'backbone.syphon';
 
 import {NameFilter} from './filters';
-import {FormModel} from './models';
+import {FormModel, TimeModel} from './models';
 
 import form from './templates/form.html';
 import person from './templates/person.html';
 import main from './templates/main.html';
+import timer from './templates/timer.html';
 
 
 const FormView = View.extend({
@@ -49,7 +50,29 @@ const Person = View.extend({
 
 const PersonList = CollectionView.extend({
   childView: Person,
-  tagName: 'ol'
+  tagName: 'ol',
+
+  onBeforeRender() {
+    this.model.set({startTime: Date.now()});
+  },
+
+  onRender() {
+    this.model.set({endTime: Date.now()});
+  }
+});
+
+const TimerView = View.extend({
+  template: timer,
+
+  modelEvents: {
+    'change:endTime': 'render'
+  },
+
+  templateContext() {
+    return {
+      elapsed: this.model.calculateElapsed()
+    };
+  }
 });
 
 export const MainView = View.extend({
@@ -57,17 +80,24 @@ export const MainView = View.extend({
 
   regions: {
     person: '.person-hook',
-    form: '.form-hook'
+    form: '.form-hook',
+    time: '.timer-hook'
   },
 
   onRender() {
     const nameFilter = new NameFilter(this.collection);
+    const time = new TimeModel();
+
     this.showChildView('form', new FormView({
       model: new FormModel(),
       collection: nameFilter
     }));
     this.showChildView('person', new PersonList({
-      collection: nameFilter
+      collection: nameFilter,
+      model: time
+    }));
+    this.showChildView('time', new TimerView({
+      model: time
     }));
   }
 });

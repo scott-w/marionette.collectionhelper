@@ -1,4 +1,6 @@
 ---
 layout: app
 ---
-<div id="root"></div>
+<div class="container">
+  <div id="root"></div>
+</div>
