@@ -18281,7 +18281,7 @@
 	module.exports = function(obj){
 	var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
 	with(obj||{}){
-	__p+='<h1>List of People</h1>\n\n<div class="row">\n    <div class="form-hook col-md-4"></div>\n    <div class="timer-hook col-md-4"></div>\n</div>\n\n<div class="person-hook"></div>\n';
+	__p+='<h1>List of People</h1>\n\n<div class="row">\n    <div class="form-hook col-md-6"></div>\n    <div class="timer-hook col-md-4"></div>\n</div>\n\n<div class="person-hook"></div>\n';
 	}
 	return __p;
 	};
