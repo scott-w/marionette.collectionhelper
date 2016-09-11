@@ -24,7 +24,7 @@ export const TimeModel = Model.extend({
 
   calculateElapsed() {
     const {startTime, endTime} = this.pick('startTime', 'endTime');
-    if (_.isNull(startTime) || _.isNull(endTime)) {
+    if (_.isNull(startTime) || _.isNull(endTime) || startTime > endTime) {
       return '';
     }
     const elapsed = new Elapsed(startTime, endTime)

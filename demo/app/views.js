@@ -34,6 +34,7 @@ const FormView = View.extend({
   },
 
   search(model, value) {
+    this.triggerMethod('start:search');
     this.collection.search(value);
   },
 
@@ -52,20 +53,54 @@ const PersonList = CollectionView.extend({
   childView: Person,
   tagName: 'ol',
 
+  collectionEvents: {
+    filter: 'endTimer'
+  },
+
   onBeforeRender() {
-    this.model.set({startTime: Date.now()});
+    this.startTimer();
   },
 
   onRender() {
-    this.model.set({endTime: Date.now()});
+    this.endTimer();
+  },
+
+  onBeforeRenderChildren() {
+    this.startTimer();
+  },
+
+  onRenderChildren() {
+    this.endTimer();
+  },
+
+  onBeforeRenderEmpty() {
+    this.startTimer();
+  },
+
+  onRenderEmpty() {
+    this.endTimer();
+  },
+
+  startTimer() {
+    this._setTimer('startTime');
+  },
+
+  endTimer() {
+    this._setTimer('endTime');
+  },
+
+  _setTimer(field) {
+    this.model.set(field, Date.now());
   }
 });
 
 const TimerView = View.extend({
+  className: 'lead',
+  tagName: 'p',
   template: timer,
 
   modelEvents: {
-    'change:endTime': 'render'
+    'change': 'render'
   },
 
   templateContext() {
@@ -84,6 +119,10 @@ export const MainView = View.extend({
     time: '.timer-hook'
   },
 
+  childViewEvents: {
+    'start:search': 'startTimer'
+  },
+
   onRender() {
     const nameFilter = new NameFilter(this.collection);
     const time = new TimeModel();
@@ -99,5 +138,10 @@ export const MainView = View.extend({
     this.showChildView('time', new TimerView({
       model: time
     }));
+  },
+
+  startTimer() {
+    const peopleList = this.getRegion('person');
+    peopleList.currentView.startTimer();
   }
 });

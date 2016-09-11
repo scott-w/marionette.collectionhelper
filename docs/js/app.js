@@ -17310,7 +17310,7 @@
 	    var startTime = _pick.startTime;
 	    var endTime = _pick.endTime;
 
-	    if (_underscore2.default.isNull(startTime) || _underscore2.default.isNull(endTime)) {
+	    if (_underscore2.default.isNull(startTime) || _underscore2.default.isNull(endTime) || startTime > endTime) {
 	      return '';
 	    }
 	    var elapsed = new _elapsed2.default(startTime, endTime);
@@ -17380,6 +17380,7 @@
 	    this.model.set(_backbone3.default.serialize(this));
 	  },
 	  search: function search(model, value) {
+	    this.triggerMethod('start:search');
 	    this.collection.search(value);
 	  },
 	  runSort: function runSort() {
@@ -17396,19 +17397,46 @@
 	  childView: Person,
 	  tagName: 'ol',
 
+	  collectionEvents: {
+	    filter: 'endTimer'
+	  },
+
 	  onBeforeRender: function onBeforeRender() {
-	    this.model.set({ startTime: Date.now() });
+	    this.startTimer();
 	  },
 	  onRender: function onRender() {
-	    this.model.set({ endTime: Date.now() });
+	    this.endTimer();
+	  },
+	  onBeforeRenderChildren: function onBeforeRenderChildren() {
+	    this.startTimer();
+	  },
+	  onRenderChildren: function onRenderChildren() {
+	    this.endTimer();
+	  },
+	  onBeforeRenderEmpty: function onBeforeRenderEmpty() {
+	    this.startTimer();
+	  },
+	  onRenderEmpty: function onRenderEmpty() {
+	    this.endTimer();
+	  },
+	  startTimer: function startTimer() {
+	    this._setTimer('startTime');
+	  },
+	  endTimer: function endTimer() {
+	    this._setTimer('endTime');
+	  },
+	  _setTimer: function _setTimer(field) {
+	    this.model.set(field, Date.now());
 	  }
 	});
 
 	var TimerView = _backbone.View.extend({
+	  className: 'lead',
+	  tagName: 'p',
 	  template: _timer2.default,
 
 	  modelEvents: {
-	    'change:endTime': 'render'
+	    'change': 'render'
 	  },
 
 	  templateContext: function templateContext() {
@@ -17427,6 +17455,10 @@
 	    time: '.timer-hook'
 	  },
 
+	  childViewEvents: {
+	    'start:search': 'startTimer'
+	  },
+
 	  onRender: function onRender() {
 	    var nameFilter = new _filters.NameFilter(this.collection);
 	    var time = new _models.TimeModel();
@@ -17442,6 +17474,10 @@
 	    this.showChildView('time', new TimerView({
 	      model: time
 	    }));
+	  },
+	  startTimer: function startTimer() {
+	    var peopleList = this.getRegion('person');
+	    peopleList.currentView.startTimer();
 	  }
 	});
 
@@ -18249,7 +18285,7 @@
 	/* WEBPACK VAR INJECTION */(function(_) {module.exports = function(obj){
 	var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
 	with(obj||{}){
-	__p+='<div class="form-group">\n    <label for="search">Search names</label>\n    <input type="search" class="searchbox form-control" name="search" \n        id="search" placeholder="John" value="'+
+	__p+='<div class="form-group">\n    <label for="search">Search names</label>\n    <input type="search" class="searchbox form-control" name="search"\n        id="search" placeholder="John" value="'+
 	((__t=( search ))==null?'':_.escape(__t))+
 	'" />\n</div>\n\n<button class="sort btn btn-primary" type="button">Sort</button>';
 	}
