@@ -49,3 +49,32 @@ describe('Sort collection', function() {
     expect(sort.at(2).get('name')).to.equal('Harry');
   });
 });
+
+
+describe('Custom Sort Filter', function() {
+  const SortCollection = Sort.extend({
+    sortFunction() {
+      this.comparator = function(first, second) {
+        return 1;
+      }
+      this.sort();
+    }
+  })
+  let collection, sort;
+
+  beforeEach(function() {
+    collection = new Collection([
+      {name: 'Test'}, {name: 'Harry'}, {name: 'Mary'}
+    ]);
+
+    sort = new SortCollection(collection);
+  });
+
+  it('takes a custom function that reverses the collection', function() {
+    sort.orderBy();
+
+    expect(sort.at(0).get('name')).to.equal('Mary');
+    expect(sort.at(1).get('name')).to.equal('Harry');
+    expect(sort.at(2).get('name')).to.equal('Test');
+  });
+});

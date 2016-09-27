@@ -15,6 +15,8 @@ const FormView = View.extend({
   tagName: 'form',
   template: form,
 
+  sorted: false,
+
   ui: {
     searchBox: '.searchbox',
     sort: '.sort'
@@ -39,7 +41,13 @@ const FormView = View.extend({
   },
 
   runSort() {
-    this.collection.orderBy('name');
+    if (!this.sorted || this.sorted.startsWith('-')) {
+      this.collection.orderBy('name');
+      this.sorted = 'name';
+    } else {
+      this.collection.orderBy('-name');
+      this.sorted = '-name';
+    }
   }
 });
 

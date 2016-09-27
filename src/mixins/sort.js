@@ -1,9 +1,14 @@
+import {isUndefined} from 'underscore'
 /** Binds the orderBy function to a collection to allow dynamic ordering.
   @returns {undefined} undefined
   @param {Backbone.Collection} collection - The collection to bind to.
 */
 export function bindSortFunction(collection) {
-  collection.orderBy = sort;
+  if (isUndefined(collection.sortFunction)) {
+    collection.orderBy = sort;
+  } else {
+    collection.orderBy = collection.sortFunction;
+  }
 }
 
 /** Perform the sort in-place based on the collection.
