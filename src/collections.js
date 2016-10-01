@@ -28,7 +28,7 @@ export const Sort = Proxy.extend({
 /** A filtering collection that proxies models in the original collection to
     filter on.
 
-    This adds a search method that performs the search against the real 
+    This adds a search method that performs the search against the real
     collection and updates this proxy for your view to respond.
 
     When extending this, you will need to add a filterFunction method of the
@@ -50,7 +50,7 @@ export const SortingFilter = Proxy.extend({
     bindSearchFunction(this);
     bindSortFunction(this);
   }
-})
+});
 
 /** Update the given arguments with the passed collection.
   @returns {Object[]} args - The updated arguments to pass to the constructor.

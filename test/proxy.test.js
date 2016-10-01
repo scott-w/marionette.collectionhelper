@@ -34,5 +34,5 @@ describe('Proxy Collection', function() {
 
     expect(proxy.length).to.be(1);
     expect(proxy.at(0).id).to.be(3);
-  })
+  });
 });

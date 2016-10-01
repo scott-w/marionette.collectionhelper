@@ -21,7 +21,7 @@ export const NameFilter = SortingFilter.extend({
         return lesserFirst;
       }
       return 0;
-    }
+    };
     this.sort();
   },
 

@@ -8,6 +8,7 @@
     "watchtest": "karma start",
     "build": "webpack",
     "build:demo": "webpack --config=webpack.demo.js",
+    "lint": "eslint test/ src/",
     "watch": "webpack -w",
     "watch:demo": "webpack -w --config=webpack.demo.js"
   },

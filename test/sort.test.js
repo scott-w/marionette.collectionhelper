@@ -5,7 +5,7 @@ import expect from 'expect.js';
 import { Sort } from '../src/collections';
 
 describe('Sort collection', function() {
-  const SortCollection = Sort.extend()
+  const SortCollection = Sort.extend();
   let collection, sort;
 
   beforeEach(function() {
@@ -56,10 +56,10 @@ describe('Custom Sort Filter', function() {
     sortFunction() {
       this.comparator = function(first, second) {
         return 1;
-      }
+      };
       this.sort();
     }
-  })
+  });
   let collection, sort;
 
   beforeEach(function() {

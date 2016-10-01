@@ -9,7 +9,7 @@ describe('Filter mapper', function() {
     filterFunction(collection, value) {
       return collection.where({name: value});
     }
-  })
+  });
   let collection, filter;
 
   beforeEach(function() {
@@ -85,7 +85,7 @@ describe('Filter mapper binding', function() {
     actuallyFilter() {
       return !this.nofilter;
     }
-  })
+  });
   let collection, filter;
 
   beforeEach(function() {
@@ -108,6 +108,6 @@ describe('Filter mapper binding', function() {
 
     filter.search('Test');
     expect(filter.length).to.be(3);
-  })
+  });
 });
 

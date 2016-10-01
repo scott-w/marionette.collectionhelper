@@ -1,4 +1,6 @@
-import {isUndefined} from 'underscore'
+import {isUndefined} from 'underscore';
+
+
 /** Binds the orderBy function to a collection to allow dynamic ordering.
   @returns {undefined} undefined
   @param {Backbone.Collection} collection - The collection to bind to.
